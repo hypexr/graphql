@@ -2,7 +2,7 @@ const path = require('path')
 const crypto = require('crypto')
 const fs = require('fs')
 const { Component } = require('@serverless/core')
-const aws = require('@serverless/aws-sdk')
+const aws = require('@serverless/aws-sdk-extra')
 
 const generateId = () =>
   Math.random()
@@ -341,7 +341,7 @@ class GraphQL extends Component {
       lambdaName: this.state.name
     }
 
-    const deleteAppSyncApiParams = {
+    const removeAppSyncApiParams = {
       apiId: this.state.apiId
     }
 
@@ -349,13 +349,13 @@ class GraphQL extends Component {
     log(`Removing Lambda "${this.state.name}" from the "${this.state.region}" region.`)
 
     const promises = [
-      aws.utils.deleteRole(deleteRoleParams),
-      aws.utils.deleteLambda(deleteLambdaParams)
+      aws.utils.removeRole(deleteRoleParams),
+      aws.utils.removeLambda(deleteLambdaParams)
     ]
 
     if (this.state.shouldDeployAppSync) {
       log(`Removing AppSync API "${this.state.apiId}" from the "${this.state.region}" region.`)
-      promises.push(aws.utils.deleteAppSyncApi(deleteAppSyncApiParams))
+      promises.push(aws.utils.removeAppSyncApi(removeAppSyncApiParams))
     }
 
     if (this.state.domain) {

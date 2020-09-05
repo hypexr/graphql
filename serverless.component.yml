@@ -1,7 +1,8 @@
-name: graphql
+name: rio-graphql
 version: 2.1.0
 author: eahefnawy
-org: serverlessinc
+org: rioverde
+# org: serverlessinc
 description: Create a GraphQL API with AWS AppSync
 keywords: aws, serverless, appsync, graphql
 repo: https://github.com/owner/project
