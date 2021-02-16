@@ -44,6 +44,8 @@ To get started with this component, install the latest version of the Serverless
 npm install -g serverless
 ```
 
+After installation, make sure you connect your AWS account by setting a provider in the org setting page on the [Serverless Dashboard](https://app.serverless.com).
+
 ## Initialize
 
 The easiest way to start using the graphql component is by initializing the `graphql-starter` template. Just run this command:
@@ -53,19 +55,10 @@ serverless init graphql-starter
 cd graphql-starter
 ```
 
-This will also run `npm install` for you, and create an empty `.env` file. Open that `.env` file and add your AWS credentials
-
-```
-# .env
-AWS_ACCESS_KEY_ID=XXX
-AWS_SECRET_ACCESS_KEY=XXX
-```
-
-You should now have a directory that looks something like this:
+This will also run `npm install` for you. You should now have a directory that looks something like this:
 
 ```
 |- serverless.yml
-|- .env
 |- schema.graphql
 |- resolvers.js
 ```
@@ -215,7 +208,7 @@ Keep reading to learn more about all the configuration options available to you.
 
 ## Extend Existing API
 
-If the `appId` input variable is provided this component will extending an existing AppSync API:
+If the `appId` input variable is provided this component will extend an existing AppSync API:
 
 ```yml
 inputs:
@@ -417,9 +410,10 @@ inputs:
   resolvers:
     Query:    
       getPost: 
+        database: my-database
         dbClusterIdentifier: arn:aws:rds:us-east-1:123456789123:cluster:my-serverless-aurora-postgres-1
         awsSecretStoreArn: arn:aws:secretsmanager:us-east-1:123456789123:secret:rds-db-credentials/cluster-ABCDEFGHI/admin-aBc1e2
-        databaseName: my-database
+        relationalDatabaseSourceType: RDS_HTTP_ENDPOINT
         schema: public
         request: >
           {
