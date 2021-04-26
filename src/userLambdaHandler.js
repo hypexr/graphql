@@ -20,6 +20,7 @@ module.exports.handler = async (event) => {
   const resolvers = require('./resolvers')
 
   if (event.source === 'aws.events') {
+    // Timer event to keep the lambda warm
     console.log ('Keep warm');
     return;
   }
