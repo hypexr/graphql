@@ -18,6 +18,12 @@ module.exports.handler = async (event) => {
   }
 
   const resolvers = require('./resolvers')
+
+  if (event.source === 'aws.events') {
+    console.log ('Keep warm');
+    return;
+  }
+
   const { parentTypeName, fieldName } = event.info
 
   // these validation errors will likely never run because they're covered
