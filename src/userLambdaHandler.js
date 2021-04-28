@@ -10,7 +10,7 @@ const fileExists = async (filePath) => {
   }
 }
 
-module.exports.handler = async (event) => {
+module.exports.handler = async (event, context) => {
   const resolversFilePath = path.join(__dirname, 'resolvers.js')
 
   if (!(await fileExists(resolversFilePath))) {
@@ -44,5 +44,5 @@ module.exports.handler = async (event) => {
   }
 
   // todo how do variables work in graphql?
-  return resolvers[parentTypeName][fieldName](event.arguments, event)
+  return resolvers[parentTypeName][fieldName](event.arguments, event, context)
 }
